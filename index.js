@@ -40,7 +40,7 @@ app.get('/infopais/:pais', async (req, res) => {
 
   const { data, error } = await supabase
     .from('paises')
-    .select('nombre, imagen')
+    .select('*')
     .eq('nombre', pais)
     .single();
 
