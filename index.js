@@ -15,6 +15,7 @@ app.get('/', (req, res) => {
     mensaje: 'API Países',
     endpoints: [
       '/continentes',
+      '/paises',
       '/paises/:continente',
       '/infopais/:pais'
     ]
@@ -43,6 +44,19 @@ app.get('/infopais/:pais', async (req, res) => {
     .select('*')
     .eq('nombre', pais)
     .single();
+
+  if (error) {
+    return res.status(500).json(error);
+  }
+
+  res.json(data);
+});
+
+app.get('/paises', async (req, res) => {
+
+  const { data, error } = await supabase
+    .from('paises')
+    .select('*');
 
   if (error) {
     return res.status(500).json(error);
